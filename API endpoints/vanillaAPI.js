@@ -1,7 +1,5 @@
 const http = require("http")
-const querystring = require("querystring")
 const port = 5000
-const bodyParser = require("body-parser")
 
 let shirts = [
     {
@@ -21,17 +19,6 @@ let shirts = [
         "color": "blue"
     }
 ]
-
-let getReqData = (req) => {
-    let data = ""
-    req.on("data", (chunk) => {
-        data+=chunk
-    })
-    req.on("end", () => {
-        const jsonData = JSON.parse(data)
-        return jsonData
-    })
-}//need to return json
 
 let getElem = function(arr, id) {
     for(let obj of arr){
