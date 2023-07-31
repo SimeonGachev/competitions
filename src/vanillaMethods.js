@@ -1,4 +1,4 @@
-class Get {
+export class Get {
   constructor(path, func) {
     this.name = "GET";
     this.path = path;
@@ -9,7 +9,7 @@ class Get {
   }
 }
 
-class Post {
+export class Post {
   constructor(path, func) {
     this.name = "POST";
     this.path = path;
@@ -20,7 +20,7 @@ class Post {
   }
 }
 
-class Put {
+export class Put {
   constructor(path, func) {
     this.name = "PUT";
     this.path = path;
@@ -31,7 +31,7 @@ class Put {
   }
 }
 
-class Delete {
+export class Delete {
   constructor(path, func) {
     this.name = "DELETE";
     this.path = path;
@@ -41,5 +41,3 @@ class Delete {
     this.func(req, res);
   }
 }
-
-module.exports = { Get, Post, Put, Delete };

@@ -1,19 +1,4 @@
-let shirts = {
-  1: {
-    color: "red",
-  },
-  2: {
-    color: "white",
-  },
-  3: {
-    color: "yellow",
-  },
-  4: {
-    color: "blue",
-  },
-};
-
-let jackets = {
+export let jackets = {
   1: {
     color: "white",
     size: "Large",
@@ -32,26 +17,7 @@ let jackets = {
   },
 };
 
-let jeans = {
-  1: {
-    color: "cyan",
-    size: "Large",
-  },
-  2: {
-    color: "magneta",
-    size: "Large",
-  },
-  3: {
-    color: "white",
-    size: "Small",
-  },
-  4: {
-    color: "brown",
-    size: "Small",
-  },
-};
-
-let tracksuits = {
+export let tracksuits = {
   adinabas: {
     1: {
       color: "cyan",
@@ -96,10 +62,9 @@ let tracksuits = {
   },
 };
 
-const allItems = {
+export const allItems = {
   shirts: shirts,
   jackets: jackets,
   jeans: jeans,
   tracksuits: tracksuits,
 };
-module.exports = { shirts, jackets, jeans, tracksuits, allItems };

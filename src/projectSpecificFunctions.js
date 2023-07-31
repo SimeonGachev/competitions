@@ -1,4 +1,7 @@
-exports.getter = function (req, res, allItems) {
+const itemList = require("./itemList.js");
+const allItems = itemList.allItems;
+
+exports.defaultGet = function (req, res) {
   const endPoints = req.url.split("/");
 
   let currItem = allItems;
@@ -23,7 +26,7 @@ exports.getter = function (req, res, allItems) {
   res.end();
 };
 
-exports.poster = function (req, res, allItems) {
+exports.defaultPost = function (req, res) {
   let data = "";
 
   req.on("data", (chunk) => {
@@ -80,7 +83,7 @@ exports.poster = function (req, res, allItems) {
   });
 };
 
-exports.putter = function (req, res, allItems) {
+exports.defaultPut = function (req, res) {
   let data = "";
 
   req.on("data", (chunk) => {
@@ -127,7 +130,7 @@ exports.putter = function (req, res, allItems) {
   });
 };
 
-exports.deleter = function (req, res, allItems) {
+exports.defaultDelete = function (req, res) {
   const endPoints = req.url.split("/");
 
   let currItem = allItems;
