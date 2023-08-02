@@ -1,5 +1,11 @@
 import { competitions } from "./competitionsModel.js";
 import { users } from "../users/usersModel.js";
+import { findUserIdbyUsername } from "../../utils/utilityFunctions.js";
+import {
+  updateWins,
+  updateBestScore,
+  updateArchive,
+} from "../users/userById/userStats/userStatsService.js";
 
 export const getAll = function () {
   return competitions;
@@ -57,6 +63,14 @@ export const closeComp = function (compId, tournamentScores) {
     (participantA, participantB) =>
       competition.scores[participantB] - competition.scores[participantA]
   );
+
+  competition.participants.forEach((username) => {
+    const userId = findUserIdbyUsername(users, username);
+
+    updateWins(userId, competition);
+    updateBestScore(userId, competition);
+    updateArchive(userId, competition);
+  });
 
   return true;
 };
