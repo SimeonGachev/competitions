@@ -1,7 +1,7 @@
-const port = 5000;
 import { createServer } from "http";
 import { handleShirtsRequest } from "./routes/shirts/shirtsRoutes.js";
 import { handleJeansRequest } from "./routes/jeans/jeansRoutes.js";
+const PORT = 5000;
 
 const server = createServer((req, res) => {
   if (req.url.startsWith("/shirts")) handleShirtsRequest(req, res);
@@ -12,7 +12,7 @@ const server = createServer((req, res) => {
   }
 });
 
-server.listen(port, (err) => {
+server.listen(PORT, (err) => {
   if (err) console.log(err);
-  console.log(`I am alive on port: ${port}`);
+  console.log(`I am alive on port: ${PORT}`);
 });

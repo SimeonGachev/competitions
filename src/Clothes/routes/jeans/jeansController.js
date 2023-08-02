@@ -8,6 +8,7 @@ import {
 
 export const getAllJeans = function (req, res) {
   const allPairsJeans = readAllJeans();
+
   res.writeHead(200, { "Content-Type": "application/json" });
   res.end(JSON.stringify(allPairsJeans));
 };
@@ -15,6 +16,7 @@ export const getAllJeans = function (req, res) {
 export const getJeansById = function (req, res) {
   const jeansId = Number(req.url.split("/")[2]);
   const singlePairJeans = readJeansById(jeansId);
+
   if (singlePairJeans) {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(singlePairJeans));
@@ -34,6 +36,7 @@ export const postJeans = function (req, res) {
   req.on("end", () => {
     const { color, size } = JSON.parse(data);
     const singlePairJeans = addJeans(color, size);
+
     res.writeHead(201, { "Content-Type": "application/json" });
     res.end(JSON.stringify(singlePairJeans));
   });
@@ -50,6 +53,7 @@ export const putJeans = function (req, res) {
   req.on("end", () => {
     const { color, size } = JSON.parse(data);
     const singlePairJeans = updateJeansById(jeansId, color, size);
+
     if (singlePairJeans) {
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify(singlePairJeans));
@@ -63,6 +67,7 @@ export const putJeans = function (req, res) {
 export const deleteJeansById = function (req, res) {
   const jeansId = Number(req.url.split("/")[2]);
   const singlePairJeans = removeJeansById(jeansId);
+
   if (singlePairJeans) {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(singlePairJeans));
