@@ -11,31 +11,52 @@ export const getById = function (compId) {
   return null;
 };
 
-export const createComp = function (userId, compName) {
+export const createComp = function (username, compName) {
   const compId = Object.values(competitions).length + 1;
 
   competitions[compId] = {
-    organiser: users[userId],
+    organiser: username,
     name: compName,
     participants: [],
     status: "Open",
+    scores: {},
     ranking: [],
   };
 
   return competitions[compId];
 };
 
-export const joinComp = function (userId, compId) {
+export const joinComp = function (username, compId) {
   if (compId in competitions) {
-    const { participants } = competitions[compId];
-    const user = users[userId];
+    const { participants, status } = competitions[compId];
 
-    if (!participants.find((participant) => participant === user))
-      participants.push(user);
+    if (
+      !participants.find((participant) => participant === username) &&
+      status === "Open"
+    )
+      participants.push(username);
     else return null;
 
     return participants;
   }
 
   return null;
+};
+
+export const closeComp = function (compId, tournamentScores) {
+  if (!(compId in competitions)) return false;
+
+  const competition = competitions[compId];
+
+  if (competition.status === "Closed") return false;
+
+  competition.status = "Closed";
+  competition.scores = tournamentScores;
+  competition.ranking = [...competition.participants];
+  competition.ranking.sort(
+    (participantA, participantB) =>
+      competition.scores[participantB] - competition.scores[participantA]
+  );
+
+  return true;
 };

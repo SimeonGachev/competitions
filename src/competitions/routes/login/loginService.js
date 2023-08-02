@@ -6,7 +6,8 @@ export const userExists = function (reqUsername) {
     const { username } = users[userId];
 
     if (username === reqUsername) {
-      loggedUser.loggedIn = userId;
+      loggedUser.id = userId;
+      loggedUser.username = username;
 
       return true;
     }

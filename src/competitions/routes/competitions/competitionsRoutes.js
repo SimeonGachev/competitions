@@ -1,4 +1,5 @@
 import {
+  closeCompetition,
   createCompetition,
   getAllCompetitions,
   getCompetition,
@@ -14,6 +15,8 @@ export const handleCompetitionsRequest = function (req, res) {
     getCompetition(req, res);
   else if (req.url.startsWith("/competitions/") && req.method === "POST")
     joinCompetition(req, res);
+  else if (req.url.startsWith("/competitions/") && req.method === "PUT")
+    closeCompetition(req, res);
   else {
     res.writeHead(404, { "Content-Type": "text/plain" });
     res.end("Route not found");

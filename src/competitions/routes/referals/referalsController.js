@@ -30,8 +30,8 @@ export const addReferal = function (req, res) {
   });
 
   req.on("end", () => {
-    const { username } = JSON.parse(body);
-    const addedUser = add(userId, username);
+    const { id } = JSON.parse(body);
+    const addedUser = add(userId, id);
 
     if (addedUser) {
       res.writeHead(201, { "Content-type": "application/json" });

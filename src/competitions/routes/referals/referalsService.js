@@ -12,10 +12,9 @@ export const getById = function (userId) {
 
 export const add = function (userId, addedUserUsername) {
   if (!(userId in referalsList)) return null;
-  if (!addedUserUsername) return null;
-  if (referalsList[userId].find((username) => username === addedUserUsername))
-    return null;
+  if (!addedUserId) return null;
+  if (referalsList[userId].find((id) => id === addedUserId)) return null;
 
-  referalsList[userId].push(addedUserUsername);
+  referalsList[userId].push(addedUserId);
   return referalsList[userId];
 };
