@@ -8,7 +8,7 @@ export const getAllTransactions = function (req, res) {
 };
 
 export const getUserTransactions = function (req, res) {
-  const userId = req.url.split("/")[2];
+  const userId = req.params.id;
   const userTransactions = getById(userId);
 
   if (userTransactions) {
@@ -21,7 +21,7 @@ export const getUserTransactions = function (req, res) {
 };
 
 export const addTransaction = function (req, res) {
-  const userId = req.url.split("/")[2];
+  const userId = req.params.id;
 
   let body = "";
 
@@ -30,15 +30,22 @@ export const addTransaction = function (req, res) {
   });
 
   req.on("end", () => {
-    const addedTransaction = JSON.parse(body);
-    const transaction = add(userId, addedTransaction);
+    try {
+      const addedTransaction = JSON.parse(body);
+      const transaction = add(userId, addedTransaction);
 
-    if (transaction) {
-      res.writeHead(201, { "Content-type": "application/json" });
-      res.end(`Transaction: ${JSON.stringify(transaction)} added successfully`);
-    } else {
-      res.writeHead(404, { "Content-type": "application/json" });
-      res.end("User not found");
+      if (transaction) {
+        res.writeHead(201, { "Content-type": "application/json" });
+        res.end(
+          `Transaction: ${JSON.stringify(transaction)} added successfully`
+        );
+      } else {
+        res.writeHead(404, { "Content-type": "application/json" });
+        res.end("User not found");
+      }
+    } catch (err) {
+      res.writeHead(400, { "Content-type": "application/json" });
+      res.end("Bad Request");
     }
   });
 };

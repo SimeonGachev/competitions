@@ -8,14 +8,19 @@ export const validateUser = function (req, res) {
   });
 
   req.on("end", () => {
-    const { username } = JSON.parse(body);
+    try {
+      const { username } = JSON.parse(body);
 
-    if (userExists(username)) {
-      res.writeHead(200, { "Content-type": "application/json" });
-      res.end("Successful login");
-    } else {
-      res.writeHead(401, { "Content-type": "application/json" });
-      res.end("Invalid credentials");
+      if (userExists(username)) {
+        res.writeHead(200, { "Content-type": "application/json" });
+        res.end("Successful login");
+      } else {
+        res.writeHead(401, { "Content-type": "application/json" });
+        res.end("Invalid credentials");
+      }
+    } catch (err) {
+      res.writeHead(400, { "Content-type": "application/json" });
+      res.end("Bad Request");
     }
   });
 };

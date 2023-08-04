@@ -8,7 +8,7 @@ export const getAllReferals = function (req, res) {
 };
 
 export const getUserReferals = function (req, res) {
-  const userId = req.url.split("/")[2];
+  const userId = req.params.id;
   const userReferals = getById(userId);
 
   if (userReferals) {
@@ -21,7 +21,7 @@ export const getUserReferals = function (req, res) {
 };
 
 export const addReferal = function (req, res) {
-  const userId = req.url.split("/")[2];
+  const userId = req.params.id;
 
   let body = "";
 
@@ -30,15 +30,20 @@ export const addReferal = function (req, res) {
   });
 
   req.on("end", () => {
-    const { id } = JSON.parse(body);
-    const addedUser = add(userId, id);
+    try {
+      const { username } = JSON.parse(body);
+      const addedUser = add(userId, username);
 
-    if (addedUser) {
-      res.writeHead(201, { "Content-type": "application/json" });
-      res.end(`User: ${JSON.stringify(addedUser)} added successfully`);
-    } else {
-      res.writeHead(404, { "Content-type": "application/json" });
-      res.end("User not found");
+      if (addedUser) {
+        res.writeHead(201, { "Content-type": "application/json" });
+        res.end(`User: ${JSON.stringify(addedUser)} added successfully`);
+      } else {
+        res.writeHead(404, { "Content-type": "application/json" });
+        res.end("User not found");
+      }
+    } catch (err) {
+      res.writeHead(400, { "Content-type": "application/json" });
+      res.end("Bad Request");
     }
   });
 };

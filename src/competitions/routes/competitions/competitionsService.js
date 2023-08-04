@@ -33,20 +33,19 @@ export const createComp = function (username, compName) {
 };
 
 export const joinComp = function (username, compId) {
-  if (compId in competitions) {
-    const { participants, status } = competitions[compId];
+  if (!(compId in competitions)) return null;
 
-    if (
-      !participants.find((participant) => participant === username) &&
-      status === "Open"
-    )
-      participants.push(username);
-    else return null;
+  const { participants, status } = competitions[compId];
 
-    return participants;
-  }
+  if (
+    participants.find((participant) => participant === username) ||
+    status !== "Open"
+  )
+    return null;
 
-  return null;
+  participants.push(username);
+
+  return participants;
 };
 
 export const closeComp = function (compId, tournamentScores) {

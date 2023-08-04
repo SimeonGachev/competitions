@@ -1,7 +1,7 @@
 import { getById } from "./userByIdService.js";
 
 export const getUser = function (req, res) {
-  const userId = req.url.split("/")[2];
+  const userId = req.params.id;
 
   const user = getById(userId);
 
