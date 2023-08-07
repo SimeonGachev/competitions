@@ -1,6 +1,8 @@
 import { Client, Events, GatewayIntentBits } from "discord.js";
-import { token } from "./config.js";
+import dotenv from "dotenv";
 
+dotenv.config();
+const { token } = process.env;
 const client = new Client({
   intents: [GatewayIntentBits.Guilds],
 });
@@ -15,6 +17,4 @@ client.on("message", (message) => {
   }
 });
 
-client.login(
-  "MTEzODA1OTczMzk1ODM5Mzg5Ng.GosZAv.y61MLLpWaKNuAZF1Sed8VMPMgSf50v-QcG4F28"
-);
+client.login(token);
