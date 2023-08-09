@@ -1,10 +1,19 @@
 import { createServer } from "http";
-import { getAllCompetitions } from "./controllers/index.js";
+import {
+  getAllCompetitions,
+  getCompetitionById,
+  createCompetition,
+} from "./controllers/index.js";
 import { router } from "./utils/routing.js";
 
 const PORT = 3000;
 
 router.get("/competitions", getAllCompetitions);
+
+router.get("/competitions/:id", getCompetitionById);
+
+router.post("/competitions", createCompetition);
+
 const server = createServer(router.handleRequest);
 
 server.listen(PORT, (err) => {

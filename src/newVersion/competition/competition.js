@@ -9,7 +9,7 @@ export default function buildMakeCompetition({ Id }) {
     open = true,
     scores = {},
     ranking = [],
-  } = {}) {
+  }) {
     if (!Id.isValidId(id)) {
       throw new Error("invalid Id");
     }

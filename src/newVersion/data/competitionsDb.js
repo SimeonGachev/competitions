@@ -25,12 +25,10 @@ export async function buildCompetitionsDb({ makeDb, Id }) {
 
   async function insert(competitionInfo) {
     const db = await makeDb();
-    const id = Id.newId();
-    const competitionToBeInserted = { id: id, ...competitionInfo };
 
-    db.push(competitionToBeInserted);
+    db.push(competitionInfo);
 
-    return competitionToBeInserted;
+    return competitionInfo;
   }
 
   async function update(competitionInfo) {

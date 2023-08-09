@@ -5,6 +5,8 @@ const routes = {
   DELETE: {},
 };
 
+const middlewareList = [];
+
 const get = (path, handler) => {
   routes["GET"][path] = handler;
 };
@@ -19,6 +21,10 @@ const put = (path, handler) => {
 
 const del = (path, handler) => {
   routes["DELETE"][path] = handler;
+};
+
+const use = (middleware) => {
+  middlewareList.push(middleware);
 };
 
 const handleRequest = function (req, res) {
@@ -41,6 +47,11 @@ const handleRequest = function (req, res) {
   }
 
   req.params = getRequestParams(matchedRoute, url);
+
+  for (let middleware of middlewareList) {
+    middleware(req, res);
+  }
+
   routes[method][matchedRoute].then((resultFunction) => {
     resultFunction(req, res);
   });
@@ -79,4 +90,5 @@ export const router = {
   put: put,
   delete: del,
   handleRequest: handleRequest,
+  use: use,
 };
