@@ -14,6 +14,7 @@ export async function buildCompetitionsDb({ makeDb, Id }) {
 
   async function getById({ id }) {
     const db = await makeDb();
+
     const target = db.find((obj) => obj.id === id);
 
     if (!target) {
