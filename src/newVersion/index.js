@@ -3,6 +3,8 @@ import {
   getAllCompetitions,
   getCompetitionById,
   createCompetition,
+  endCompetition,
+  enterCompetition,
 } from "./controllers/index.js";
 import { router } from "./utils/routing.js";
 
@@ -13,6 +15,10 @@ router.get("/competitions", getAllCompetitions);
 router.get("/competitions/:id", getCompetitionById);
 
 router.post("/competitions", createCompetition);
+
+router.put("/competitions/:id/end", endCompetition);
+
+router.put("/competitions/:id/join", enterCompetition);
 
 const server = createServer(router.handleRequest);
 

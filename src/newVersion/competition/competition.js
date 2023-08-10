@@ -22,19 +22,34 @@ export default function buildMakeCompetition({ Id }) {
       throw new Error("competition needs a name");
     }
 
+    if (!modifiedOn) {
+      modifiedOn = Date.now();
+    }
+
     return Object.freeze({
       getId: () => id,
       getOrganiser: () => organiser,
       getName: () => name,
       getCreatedOn: () => createdOn,
       getModifiedOn: () => modifiedOn,
-      getPartitipants: () => participants,
+      getParticipants: () => participants,
       getScores: () => scores,
       getRanking: () => ranking,
       isOpen: () => open,
       close: () => {
         open = false;
       },
+      setScores: (newScores) => {
+        scores = newScores;
+      },
+      updateRanking: () => {
+        ranking = [...participants];
+        ranking.sort(
+          (participantA, participantB) =>
+            competition.scores[participantB] - competition.scores[participantA]
+        );
+      },
+      addParticipant: (participant) => participants.push(participant),
     });
   };
 }
